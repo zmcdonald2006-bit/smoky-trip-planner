@@ -1271,7 +1271,7 @@ dialog.lightbox::backdrop { background: #0b0d0c; }
 .map-base-btn[aria-pressed="true"] { background: var(--forest); color: var(--forest-ink); }
 .map-note { position: absolute; z-index: 1000; top: 58px; left: 50%; transform: translateX(-50%); width: min(92%, 520px); background: var(--surface); border: 1px solid var(--line-2); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); font-size: .9rem; }
 .map-note .btn { margin-left: 6px; }
-.map-card-wrap { position: absolute; z-index: 1000; left: 10px; bottom: 26px; width: min(400px, calc(100% - 20px)); max-height: calc(100% - 70px); display: flex; }
+.map-card-wrap { position: absolute; z-index: 1000; left: 10px; bottom: 30px; width: min(400px, calc(100% - 20px)); max-height: calc(100% - 70px); display: flex; }
 .mcard { position: relative; width: 100%; background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px; box-shadow: var(--shadow-lg); overflow: auto; overscroll-behavior: contain; }
 .mcard-x { position: absolute; top: 6px; right: 6px; z-index: 2; width: 36px; height: 36px; background: color-mix(in srgb, var(--surface) 88%, transparent); border-radius: 50%; }
 .mcard-photos { display: flex; gap: 4px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; background: var(--surface-2); }
@@ -1290,13 +1290,15 @@ dialog.lightbox::backdrop { background: #0b0d0c; }
 .mcard-inst { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: var(--forest-soft); border-radius: 10px; padding: 6px 8px; font-size: .88rem; }
 .mcard-inst > span { display: inline-flex; gap: 5px; align-items: center; flex: 1; min-width: 150px; }
 .mcard-inst .input.sm, .mday-ctl .input.sm { width: auto; min-height: 32px; padding: 0 6px; font-size: .85rem; }
-.mcard-actions { gap: 6px; }
+.mcard-actions { gap: 6px; position: sticky; bottom: 0; z-index: 1; background: var(--surface); margin: 0 -14px -12px; padding: 8px 14px 10px; border-top: 1px solid var(--line); }
 @media (max-width: 719px) {
-  .map-card-wrap { left: 6px; right: 6px; bottom: 22px; width: auto; max-height: 64%; }
-  .mcard-photos img, .mcard-photos button:first-child img { height: 104px; }
+  .map-card-wrap { left: 6px; right: 6px; bottom: 36px; width: auto; max-height: 62%; }
+  .mcard-photos img, .mcard-photos button:first-child img { height: 92px; }
+  .mcard-short { font-size: .88rem; margin: 4px 0 6px; }
+  .mcard-where { font-size: .8rem; }
   .mcard-actions .btn.sm { padding: 0 10px; }
 }
-@media (max-width: 400px) { .hide-xs { display: none; } }
+@media (max-width: 400px) { .hide-xs { display: none; } .mcard-actions { flex-wrap: nowrap; } }
 /* pins */
 .mpin-wrap { background: none; border: 0; }
 .mpin { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
@@ -3969,7 +3971,7 @@ function mapInit() {
   const f = mapUIState();
   const m = L.map("trip-map", { zoomControl: true, attributionControl: true, minZoom: 5, maxZoom: 19, worldCopyJump: false, zoomSnap: 0.5 });
   m.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener noreferrer">Leaflet</a>');
-  m.attributionControl.addAttribution('Pins &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors (ODbL)');
+  m.attributionControl.addAttribution('Pins: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> (ODbL)');
   MAP.map = m;
   MAP.cluster = L.markerClusterGroup({
     showCoverageOnHover: false, spiderfyOnMaxZoom: true, disableClusteringAtZoom: 16, maxClusterRadius: z => (z < 11 ? 56 : 40),
@@ -4194,7 +4196,7 @@ function renderMapCard() {
   let addBtn = "";
   if (it.status === "resolve") addBtn = `<button class="btn sm primary" data-act="resolve-open" data-id="${id}">Choose a studio…</button>`;
   else if (it.cat === "hotel") addBtn = `<button class="btn sm primary" data-act="goto" data-view="drive">${icon("bed", "sm")}${S().hotel.pick === id ? "Your Friday hotel" : "Hotel options"}</button>`;
-  else if (canSchedule(it)) addBtn = `<button class="btn sm primary" data-act="add-open" data-id="${id}" ${f.day ? `data-date="${f.day}"` : ""}>${icon("plus", "sm")}${ix.length ? "Add again" : f.day ? `Add to ${DAY[f.day].short}` : "Add to a day"}</button>`;
+  else if (canSchedule(it)) addBtn = `<button class="btn sm primary" data-act="add-open" data-id="${id}" ${f.day ? `data-date="${f.day}"` : ""}>${icon("plus", "sm")}${ix.length ? "Add again" : f.day ? `Add to ${DAY[f.day].short}` : `Add<span class="hide-xs"> to a day</span>`}</button>`;
   box.innerHTML = `<section class="mcard" aria-labelledby="mcard-h">
     <button class="icon-btn mcard-x" data-act="map-select" data-id="" aria-label="Close">${icon("x", "sm")}</button>
     ${strip}
