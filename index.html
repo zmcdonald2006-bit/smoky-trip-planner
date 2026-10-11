@@ -3464,6 +3464,8 @@ function imgFail(img) {
   img.replaceWith(ph);
 }
 function showPhotoBanner() {
+  // On the hosted website a failed photo is just a network hiccup — the online copy loads quietly instead.
+  if (/^https?:$/.test(location.protocol)) return;
   const b = $("#photo-banner"); if (!b) return;
   b.hidden = false;
   b.innerHTML = `<div class="banner info" role="status">${icon("camera")}<div><b>Offline photo folder not found next to this file.</b> Showing online copies where possible. For full offline galleries, extract the ZIP and open <span class="kbd">index.html</span> inside the extracted folder (it needs the <span class="kbd">assets/photos</span> folder beside it).</div><span class="spacer"></span><button class="icon-btn" data-act="hide-banner" aria-label="Dismiss">${icon("x", "sm")}</button></div>`;
