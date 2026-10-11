@@ -8,6 +8,8 @@ scenic drives, attractions, coffee stops and restaurants, with 559 real, openly 
 
 ## How it works
 
+- **Map tab:** every place with a checked location is a pin. Tap one for photos and details, add it to a day,
+  or pick a day to see its stops in order, then reorder them or move them to another day.
 - Everything runs in your browser. There's no account and no server-side storage, and nothing is ever booked.
 - Your plan autosaves **in the browser you're using**. Use *Print & share → Export plan* to back it
   up or move it to another device.
@@ -22,3 +24,9 @@ Every photo is a real photo of the named place from Wikimedia Commons, Flickr (C
 or the National Park Service, used under the licence shown with it. Full credits:
 [IMAGE-CREDITS.html](IMAGE-CREDITS.html) · coverage notes: [PHOTO-COVERAGE-REPORT.md](PHOTO-COVERAGE-REPORT.md).
 The planner itself is a personal, non-commercial project.
+
+## Map credits
+
+Map pins and trail/drive lines: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL),
+checked by name, type and area. Base maps: OpenStreetMap, OpenTopoMap (CC-BY-SA) and USGS The National Map (public domain).
+Map software: [Leaflet](https://leafletjs.com) (BSD-2-Clause) and Leaflet.markercluster (MIT).
